@@ -17,6 +17,14 @@ server.get('/users', (req,res)=>{
   }).catch(err=>{res.json({error:err, message:'Something broke'})})
 })
 
+server.get('/users/:id', (request, response)=>{
+  const ID = request.params.id;
+  database.findById(ID)
+  .then(user=>{response.status(201).json(user)})
+  .catch(error=>{response.status(500).json({error:error, message:'user not found'})} )
+})
+
+
 server.post('/users',(req,res)=>{
 // one way to get data from the client is in the request's body
 // axios.post(url, data) => the data shows up as the body on the server
